@@ -2,6 +2,8 @@
 #import <CMHealth/CMHealth.h>
 #import "ACMAppDelegate.h"
 #import "ACMAlerter.h"
+#import "UIViewController+ACM.h"
+#import "ACMMainPanelViewController.h"
 
 @interface ACMProfileViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
@@ -9,6 +11,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UIButton *learnButton;
 @property (weak, nonatomic) IBOutlet UIButton *emailButton;
+@property (weak, nonatomic) IBOutlet UIImageView *signatureImage;
 @property (nonatomic) MFMailComposeViewController *mailViewController;
 @end
 
@@ -22,6 +25,17 @@
     [ACMProfileViewController styleButtons:@[self.logoutButton]];
 
     self.mailViewController = [ACMProfileViewController mailComposeViewControllerWithDelegate:self];
+
+    [self.acm_mainPanel.consent fetchSignatureImageWithCompletion:^(UIImage * _Nullable signature, NSError * _Nullable error) {
+        if (nil == signature) {
+            NSLog(@"Error fetching signature: %@", error.localizedDescription);
+            return;
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.signatureImage.image = signature;
+        });
+    }];
 }
 
 - (void)configureWithUserData:(CMHUserData *)userData

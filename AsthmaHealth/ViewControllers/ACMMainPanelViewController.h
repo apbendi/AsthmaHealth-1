@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <ResearchKit/ResearchKit.h>
+#import <CMHealth/CMHealth.h>
 
 static NSString *_Nullable const ACMSurveyDataNotification = @"ACMSurveyDataFetched";
 
@@ -7,6 +8,7 @@ static NSString *_Nullable const ACMSurveyDataNotification = @"ACMSurveyDataFetc
 
 @property (nonatomic, nullable, readonly) ORKTaskResult *consentResult;
 @property (nonatomic, nullable, readonly) NSArray <ORKTaskResult *> *surveyResults;
+@property (nonatomic, nullable, readonly) CMHConsent *consent;
 
 - (void)refreshData;
 - (void)uploadResult:(ORKResult *_Nonnull)surveyResult;

@@ -1,5 +1,4 @@
 #import "ACMMainPanelViewController.h"
-#import <CMHealth/CMHealth.h>
 #import "NSDate+ACM.h"
 #import "UIColor+ACM.h"
 #import "ACMAlerter.h"
@@ -9,6 +8,7 @@
 @property (nonatomic, nullable) UIView *loadingOverlay;
 @property (nonatomic, nullable, readwrite) ORKTaskResult *consentResult;
 @property (nonatomic, nullable, readwrite) NSArray <ORKTaskResult *> *surveyResults;
+@property (nonatomic, nullable, readwrite) CMHConsent *consent;
 @property (nonatomic, nullable, readonly) ACMAppDelegate *appDelegate;
 @end
 
@@ -52,7 +52,8 @@
 
             return;
         }
-        
+
+        self.consent = consent;
         [self refreshData];
     }];
 }
